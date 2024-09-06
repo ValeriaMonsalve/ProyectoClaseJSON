@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float velMovement = 5f; // Velocidad de movimiento
     public float fuerzaJump = 7f;  // Velocidad de salto
 
+    private bool enElSuelo = false;
+
     [Header("RigidBody y Animator")]
     private Rigidbody2D rb;        //RigidBody Físicas 2D
     private Animator animator;  //Animatot Animaciones del player
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         movimientoH = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(movimientoH * velMovement, rb.velocity.y);
         animator.SetFloat("Horizontal", Mathf.Abs(movimientoH));
+        
 
         //Flip
         if (movimientoH > 0)
@@ -58,6 +61,22 @@ public class PlayerController : MonoBehaviour
         }
 
         //Salto
+        if (Input.GetButton("Jump") && enElSuelo)
+        {
+            animator.SetBool ("Jump", true);
+            rb.AddForce(new Vector2(0f, fuerzaJump), ForceMode2D.Impulse);
+            enElSuelo = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Detectar el suelo
+        if (collision.gameObject.CompareTag("Suelo"))
+        {
+            enElSuelo = true;
+            Debug.Log("Estoy tocando el suelo");
+        }
     }
 
 }
