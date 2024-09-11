@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -79,4 +80,42 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RespawnAtLastCheckpoint()
+    {
+        if (CheckPoint.activeCheckpoint != null) 
+        {
+            float playerPosX = PlayerPrefs.GetFloat("PlayerPosX");
+            float playerPosY = PlayerPrefs.GetFloat("PlayerPosY");
+            Vector3 respawnPosition = new Vector3(playerPosX, playerPosY,playerTransform.position.z);  
+            playerTransform.position = respawnPosition;
+        }
+
+        //Restaurar la vida u otros valores necesarios
+        //Reiniciar el juego, mostrar animaciones, etc.
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag ("Enemy"))
+        {
+            //El jugador ha tocado a un enemigo, así que lo consideramos muerto
+            PlayerDeath();
+        }
+        //else  if (other.CompareTag ("Enemy2"))
+        //{
+        //El jugador ha tocado a un enemigo, así que lo consideramos muerto
+        //PlayerDeath();
+        //}
+    }
+
+    public void PlayerDeath ()
+    {
+        //Realizar acciones relacionadas con la muerte del personaje
+        //Por ejemplo, mostrar una animación de muerte o reducir la vida del jugador.
+
+        //Llamar a la función de respawn
+        RespawnAtLastCheckpoint();
+    }
 }
+
+
