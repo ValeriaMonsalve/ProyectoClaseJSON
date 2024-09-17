@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         movimientoH = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(movimientoH * velMovement, rb.velocity.y);
         animator.SetFloat("Horizontal", Mathf.Abs(movimientoH));
-        
+
 
         //Flip
         if (movimientoH > 0)
@@ -64,9 +64,11 @@ public class PlayerController : MonoBehaviour
         //Salto
         if (Input.GetButton("Jump") && enElSuelo)
         {
-            animator.SetBool ("Jump", true);
+            animator.SetBool("Jump", true);
+            Debug.Log("Se ejecuta");
             rb.AddForce(new Vector2(0f, fuerzaJump), ForceMode2D.Impulse);
             enElSuelo = false;
+            Debug.Log("Space print");
         }
     }
 
@@ -82,24 +84,33 @@ public class PlayerController : MonoBehaviour
 
     public void RespawnAtLastCheckpoint()
     {
-        if (CheckPoint.activeCheckpoint != null) 
+        if (CheckPoint.activeCheckpoint != null)
         {
+            //traigo los valores guardados del checkpoint
+
             float playerPosX = PlayerPrefs.GetFloat("PlayerPosX");
             float playerPosY = PlayerPrefs.GetFloat("PlayerPosY");
-            Vector3 respawnPosition = new Vector3(playerPosX, playerPosY,playerTransform.position.z);  
-            playerTransform.position = respawnPosition;
+
+            //Entregarle al personaje la posición que teniamos guardada
+            Vector3 respawnPosition = new Vector3(playerPosX, playerPosY, playerTransform.position.z);
+            playerTransform.position = respawnPosition; //Llevar al personaje a la posición guardada
         }
 
         //Restaurar la vida u otros valores necesarios
         //Reiniciar el juego, mostrar animaciones, etc.
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag ("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             //El jugador ha tocado a un enemigo, así que lo consideramos muerto
+            Debug.Log("Soy el enemigo");
+            //gameObject.SetActive(false);
+            //Destroy (gameObject);
+
             PlayerDeath();
+
         }
         //else  if (other.CompareTag ("Enemy2"))
         //{
@@ -108,14 +119,14 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    public void PlayerDeath ()
+    public void PlayerDeath()
     {
         //Realizar acciones relacionadas con la muerte del personaje
         //Por ejemplo, mostrar una animación de muerte o reducir la vida del jugador.
 
         //Llamar a la función de respawn
+
+
         RespawnAtLastCheckpoint();
     }
 }
-
-
