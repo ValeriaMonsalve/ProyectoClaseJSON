@@ -7,5 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Partida.unity
-    guid: 114d6819e46df9c49a806f790da318c6
+    guid: 24235d5d51176c04ab5a64c9b561ebc9
   m_configObjects: {}
