@@ -9,5 +9,4 @@ public class DataGame : MonoBehaviour
        //Posición del jugador
        public Vector3 Position;
 
-      public int life;
 }
