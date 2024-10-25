@@ -4,9 +4,13 @@ using JetBrains.Annotations;
 using UnityEngine;
 [System.Serializable]
 
-public class DataGame : MonoBehaviour
+public class DataGame 
 {
        //Posición del jugador
-       public Vector3 Position;
+       public Vector3 position;
+
+       public int life;
+
 
 }
+

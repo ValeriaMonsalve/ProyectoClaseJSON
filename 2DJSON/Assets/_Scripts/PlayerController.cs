@@ -92,8 +92,8 @@ public class PlayerController : MonoBehaviour
             float playerPosY = PlayerPrefs.GetFloat("PlayerPosY");
 
             //Entregarle al personaje la posición que teniamos guardada
-            Vector3 respawnPosition = new Vector3(playerPosX, playerPosY, playerTransform.position.z);
-            playerTransform.position = respawnPosition; //Llevar al personaje a la posición guardada
+            Vector3 respawnposition = new Vector3(playerPosX, playerPosY, playerTransform.position.z);
+            playerTransform.position = respawnposition; //Llevar al personaje a la posición guardada
         }
 
         //Restaurar la vida u otros valores necesarios

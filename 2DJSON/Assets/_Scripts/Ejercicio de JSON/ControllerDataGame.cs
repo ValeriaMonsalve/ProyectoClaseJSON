@@ -45,7 +45,8 @@ public class ControllerDataGame : MonoBehaviour
 
             dataGame = JsonUtility.FromJson<DataGame>(dataContent);
 
-            Debug.Log("Position Player:" + dataGame.Position);
+            Debug.Log("Position Player:" + dataGame.position);
+            //Revisa la posición del jugador al cargar
         }
         else
         {
@@ -53,8 +54,10 @@ public class ControllerDataGame : MonoBehaviour
         }
 
         //cambie de posición por la de archivo
-        player.transform.position = dataGame.Position;
+        player.transform.position = dataGame.position;
 
+        //Cargaremos la vida del personaje
+        player.GetComponent<LifePlayer>().cantidadVida = dataGame.life;
     }
 
     private void SaveData() 
@@ -64,14 +67,19 @@ public class ControllerDataGame : MonoBehaviour
         DataGame newData = new DataGame()
         {
             //agarrar los datos nuevos
-            Position = player.transform.position
-        };
+            position = player.transform.position,
+
+             //creamos un nuevo elemento y llamamos el componente de cantidadvida
+        life = player.GetComponent<LifePlayer>().cantidadVida
+    };
+
 
         //lo volvemos  JSON
-        string stringJson = JsonUtility.ToJson(newData);
+        string StringJson = JsonUtility.ToJson(newData);
 
         //Escribir datos
-        File.WriteAllText(saveFile, stringJson);
+        File.WriteAllText(saveFile, StringJson);
+
     }
 
     private void Update()

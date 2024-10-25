@@ -10,12 +10,12 @@ public class CollectableItem : MonoBehaviour
     {
         if (collision.CompareTag("Player")) //Aseguramos que el player tenga el tag Player
         {
-            Debug.Log("Soy el player y estoy en el trigger de la banana");
+            Debug.Log("Soy el player y estoy en el trigger de la cereza");
 
             GameManager.instance.CollectableItem(value); // Llamado a la función de GameManager
             Destroy (gameObject);//El objeto fue destruido
 
-            Debug.Log("La banana fue destruida");
+            Debug.Log("La cereza fue destruida");
         }
     }
 }
